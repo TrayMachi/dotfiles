@@ -1,0 +1,12 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export ANDROID_HOME:/home/tray/Android/Sdk
+SETUVAR --export ANDROID_SDK_ROOT:/home/tray/Android/Sdk
+SETUVAR --export --path PATH:/opt/flutter/bin\x1e/run/user/1000/fnm_multishells/37641_1774623440107/bin\x1e/home/tray/\x2egvm/pkgsets/go1\x2e22/global/bin\x1e/home/tray/\x2egvm/gos/go1\x2e22/bin\x1e/home/tray/\x2egvm/pkgsets/go1\x2e22/global/overlay/bin\x1e/home/tray/\x2egvm/bin\x1e/home/tray/\x2ecargo/bin\x1e/home/tray/\x2epub\x2dcache/bin\x1e/home/tray/\x2elocal/bin\x1e/home/tray/\x2enpm\x2dglobal/bin\x1e/tmp/\x2emount_SlayZoH3yHFB\x1e/tmp/\x2emount_SlayZoH3yHFB/usr/sbin\x1e/tmp/\x2emount_SlayZoIPwSVJ\x1e/tmp/\x2emount_SlayZoIPwSVJ/usr/sbin\x1e/opt/flutter/bin\x1e/run/user/1000/fnm_multishells/983_1774622764274/bin\x1e/usr/local/sbin\x1e/usr/local/bin\x1e/usr/bin\x1e/var/lib/flatpak/exports/bin\x1e/usr/lib/jvm/default/bin\x1e/usr/bin/site_perl\x1e/usr/bin/vendor_perl\x1e/usr/bin/core_perl\x1e/usr/lib/rustup/bin\x1e/opt/android\x2dsdk/platform\x2dtools
+SETUVAR --export SSH_AUTH_SOCK:\x1d
+SETUVAR __fish_initialized:4300
+SETUVAR _fisher_edc_2F_bass_files:\x7e/\x2econfig/fish/functions/__bass\x2epy\x1e\x7e/\x2econfig/fish/functions/bass\x2efish
+SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1eedc/bass
+SETUVAR _fisher_upgraded_to_4_4:\x1d
+SETUVAR --export fish_user_paths:/home/tray/\x2ecargo/bin\x1e/home/tray/\x2epub\x2dcache/bin\x1e/home/tray/\x2elocal/bin\x1e/home/tray/\x2enpm\x2dglobal/bin
