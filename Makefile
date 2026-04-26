@@ -1,5 +1,4 @@
-.PHONY: backup restore backup-fish backup-hypr restore-fish restore-hypr diff diff-fish diff-hypr
-
+.PHONY: backup restore backup-fish backup-hypr restore-fish restore-hypr diff diff-fish diff-hypr confirm-restore-fish confirm-restore-hypr
 # Default target
 all: backup
 
@@ -19,19 +18,49 @@ backup-hypr:
 	@rsync -av --delete ~/.config/hypr/ ./hypr/
 	@echo "Hypr config backed up."
 
-# Restore all configs from repo to system
+# Restore all configs from repo to system (with confirmation)
 restore: restore-fish restore-hypr
 	@echo "All configs restored!"
 
-# Restore fish config
+# Helper: confirm before restoring
+define CONFIRM_RESTORE
+	@echo ""
+	@echo "\033[1;33mPreview of changes for $(1):\033[0m"
+	@echo "\033[2m(repo → system)\033[0m"
+	@echo ""
+	@diff --color=auto -ruN $(2) $(3) || true
+	@echo ""
+	@read -p "Apply these changes to $(1)? [y/N] " confirm; \
+	if [ "$$confirm" != "y" ] && [ "$$confirm" != "Y" ]; then \
+		echo "\033[1;31mSkipped $(1).\033[0m"; \
+		exit 1; \
+	fi
+endef
+
+# Restore fish config (with confirmation)
 restore-fish:
+	$(call CONFIRM_RESTORE,fish,./fish/,~/.config/fish/)
 	@echo "Restoring fish config..."
 	@mkdir -p ~/.config/fish
 	@rsync -av --delete ./fish/ ~/.config/fish/
 	@echo "Fish config restored."
 
-# Restore hypr config
+# Restore hypr config (with confirmation)
 restore-hypr:
+	$(call CONFIRM_RESTORE,hypr,./hypr/,~/.config/hypr/)
+	@echo "Restoring hypr config..."
+	@mkdir -p ~/.config/hypr
+	@rsync -av --delete ./hypr/ ~/.config/hypr/
+	@echo "Hypr config restored."
+
+# Force restore without confirmation
+confirm-restore-fish:
+	@echo "Restoring fish config..."
+	@mkdir -p ~/.config/fish
+	@rsync -av --delete ./fish/ ~/.config/fish/
+	@echo "Fish config restored."
+
+confirm-restore-hypr:
 	@echo "Restoring hypr config..."
 	@mkdir -p ~/.config/hypr
 	@rsync -av --delete ./hypr/ ~/.config/hypr/
