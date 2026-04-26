@@ -24,15 +24,15 @@ restore: restore-fish restore-hypr
 
 # Helper: confirm before restoring
 define CONFIRM_RESTORE
-	@echo ""
-	@echo "\033[1;33mPreview of changes for $(1):\033[0m"
-	@echo "\033[2m(repo → system)\033[0m"
-	@echo ""
-	@diff --color=auto -ruN $(2) $(3) || true
-	@echo ""
+	@printf "\n"
+	@printf "\033[1;33mPreview of changes for %s:\033[0m\n" "$(1)"
+	@printf "\033[2m(repo → system)\033[0m\n"
+	@printf "\n"
+	@diff --color=auto -ruN $(3) $(2) || true
+	@printf "\n"
 	@read -p "Apply these changes to $(1)? [y/N] " confirm; \
 	if [ "$$confirm" != "y" ] && [ "$$confirm" != "Y" ]; then \
-		echo "\033[1;31mSkipped $(1).\033[0m"; \
+		printf "\033[1;31mSkipped %s.\033[0m\n" "$(1)"; \
 		exit 1; \
 	fi
 endef
@@ -71,10 +71,10 @@ diff: diff-fish diff-hypr
 
 # Diff fish config
 diff-fish:
-	@echo "\033[1;36m=== Fish Config Differences ===\033[0m"
+	@printf "\033[1;36m=== Fish Config Differences ===\033[0m\n"
 	@diff --color=auto -ruN ./fish/ ~/.config/fish/ || true
 
 # Diff hypr config  
 diff-hypr:
-	@echo "\033[1;36m=== Hypr Config Differences ===\033[0m"
+	@printf "\033[1;36m=== Hypr Config Differences ===\033[0m\n"
 	@diff --color=auto -ruN ./hypr/ ~/.config/hypr/ || true
