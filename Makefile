@@ -1,4 +1,4 @@
-.PHONY: backup restore backup-fish backup-hypr restore-fish restore-hypr
+.PHONY: backup restore backup-fish backup-hypr restore-fish restore-hypr diff diff-fish diff-hypr
 
 # Default target
 all: backup
@@ -36,3 +36,16 @@ restore-hypr:
 	@mkdir -p ~/.config/hypr
 	@rsync -av --delete ./hypr/ ~/.config/hypr/
 	@echo "Hypr config restored."
+
+# Diff all configs (system vs repo)
+diff: diff-fish diff-hypr
+
+# Diff fish config
+diff-fish:
+	@echo "\033[1;36m=== Fish Config Differences ===\033[0m"
+	@diff --color=auto -ruN ./fish/ ~/.config/fish/ || true
+
+# Diff hypr config  
+diff-hypr:
+	@echo "\033[1;36m=== Hypr Config Differences ===\033[0m"
+	@diff --color=auto -ruN ./hypr/ ~/.config/hypr/ || true
