@@ -127,3 +127,4 @@ end
 # Run auto-switch on shell startup
 govman_auto_switch
 # END GOVMAN
+set -x GITLAB_TOKEN glpat_REDACTED
