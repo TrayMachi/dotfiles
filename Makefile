@@ -1,9 +1,9 @@
-.PHONY: backup restore backup-fish backup-hypr restore-fish restore-hypr diff diff-fish diff-hypr confirm-restore-fish confirm-restore-hypr
+.PHONY: backup restore backup-fish backup-hypr backup-opencode backup-agents restore-fish restore-hypr restore-opencode restore-agents diff diff-fish diff-hypr diff-opencode diff-agents confirm-restore-fish confirm-restore-hypr confirm-restore-opencode confirm-restore-agents
 # Default target
 all: backup
 
 # Backup all configs from system to repo
-backup: backup-fish backup-hypr
+backup: backup-fish backup-hypr backup-opencode backup-agents
 	@echo "All configs backed up!"
 
 # Backup fish config
@@ -18,8 +18,20 @@ backup-hypr:
 	@rsync -av --delete ~/.config/hypr/ ./hypr/
 	@echo "Hypr config backed up."
 
+# Backup opencode config
+backup-opencode:
+	@echo "Backing up opencode config..."
+	@rsync -av --delete ~/.config/opencode/ ./opencode/
+	@echo "Opencode config backed up."
+
+# Backup agents config
+backup-agents:
+	@echo "Backing up agents config..."
+	@rsync -av --delete ~/.agents/ ./agents/
+	@echo "Agents config backed up."
+
 # Restore all configs from repo to system (with confirmation)
-restore: restore-fish restore-hypr
+restore: restore-fish restore-hypr restore-opencode restore-agents
 	@echo "All configs restored!"
 
 # Helper: confirm before restoring
@@ -53,6 +65,22 @@ restore-hypr:
 	@rsync -av --delete ./hypr/ ~/.config/hypr/
 	@echo "Hypr config restored."
 
+# Restore opencode config (with confirmation)
+restore-opencode:
+	$(call CONFIRM_RESTORE,opencode,./opencode/,~/.config/opencode/)
+	@echo "Restoring opencode config..."
+	@mkdir -p ~/.config/opencode
+	@rsync -av --delete ./opencode/ ~/.config/opencode/
+	@echo "Opencode config restored."
+
+# Restore agents config (with confirmation)
+restore-agents:
+	$(call CONFIRM_RESTORE,agents,./agents/,~/.agents/)
+	@echo "Restoring agents config..."
+	@mkdir -p ~/.agents
+	@rsync -av --delete ./agents/ ~/.agents/
+	@echo "Agents config restored."
+
 # Force restore without confirmation
 confirm-restore-fish:
 	@echo "Restoring fish config..."
@@ -66,8 +94,20 @@ confirm-restore-hypr:
 	@rsync -av --delete ./hypr/ ~/.config/hypr/
 	@echo "Hypr config restored."
 
+confirm-restore-opencode:
+	@echo "Restoring opencode config..."
+	@mkdir -p ~/.config/opencode
+	@rsync -av --delete ./opencode/ ~/.config/opencode/
+	@echo "Opencode config restored."
+
+confirm-restore-agents:
+	@echo "Restoring agents config..."
+	@mkdir -p ~/.agents
+	@rsync -av --delete ./agents/ ~/.agents/
+	@echo "Agents config restored."
+
 # Diff all configs (system vs repo)
-diff: diff-fish diff-hypr
+diff: diff-fish diff-hypr diff-opencode diff-agents
 
 # Diff fish config
 diff-fish:
@@ -78,3 +118,13 @@ diff-fish:
 diff-hypr:
 	@printf "\033[1;36m=== Hypr Config Differences ===\033[0m\n"
 	@diff --color=auto -ruN ./hypr/ ~/.config/hypr/ || true
+
+# Diff opencode config
+diff-opencode:
+	@printf "\033[1;36m=== Opencode Config Differences ===\033[0m\n"
+	@diff --color=auto -ruN ./opencode/ ~/.config/opencode/ || true
+
+# Diff agents config
+diff-agents:
+	@printf "\033[1;36m=== Agents Config Differences ===\033[0m\n"
+	@diff --color=auto -ruN ./agents/ ~/.agents/ || true
