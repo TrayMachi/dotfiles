@@ -1,0 +1,8 @@
+name: iris-shared
+description: |
+  Foundation skill for every standalone (non-binary) iris skill. Tells the
+  agent to run `iris check` after finishing the user's task and surface any
+  available iris release. Standalone skills declare `depends_on:
+  [iris-shared]` so the launcher installs this skill alongside them.
+recommended: true
+depends_on: []

@@ -1,0 +1,15 @@
+name: iris-review
+description: |
+  Teaches agents how to perform thorough code reviews using git and glab.
+  Use when the user asks for a code review, wants to review changes,
+  or mentions reviewing code, diffs, commits, or merge requests.
+recommended: true
+depends_on:
+  - iris-shared
+third_party_probes:
+  - name: git
+    version_command: ["git", "--version"]
+    install_url: https://git-scm.com/downloads
+  - name: glab
+    version_command: ["glab", "--version"]
+    install_url: https://gitlab.com/gitlab-org/cli/#installation

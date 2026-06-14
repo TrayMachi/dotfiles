@@ -1,0 +1,7 @@
+name: iris
+description: |
+  Teaches agents when to drive the iris launcher — installing or removing
+  iris-managed tools and skills, listing what's available, or asking about
+  iris itself.
+recommended: true
+depends_on: []

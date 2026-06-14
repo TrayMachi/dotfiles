@@ -127,4 +127,14 @@ end
 # Run auto-switch on shell startup
 govman_auto_switch
 # END GOVMAN
-set -x GITLAB_TOKEN glpat_REDACTED
+
+alias pi="fnm exec --using=24 pi"
+# opencode
+fish_add_path /home/tray/.opencode/bin
+
+# pnpm
+set -gx PNPM_HOME "/home/tray/.local/share/pnpm"
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
+end
+# pnpm end

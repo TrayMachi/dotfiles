@@ -1,0 +1,13 @@
+name: iris-gitlab
+description: |
+  Standalone iris skill teaching agents how to drive the `glab` CLI for
+  GitLab merge requests, CI/CD pipelines, job logs, and inline diff
+  comments. Use when the user asks about MRs, pipeline status, posting MR
+  review comments, or shares a gitlab.com / gitlab.glints.com URL.
+recommended: true
+depends_on:
+  - iris-shared
+third_party_probes:
+  - name: glab
+    version_command: ["glab", "--version"]
+    install_url: https://gitlab.com/gitlab-org/cli/#installation

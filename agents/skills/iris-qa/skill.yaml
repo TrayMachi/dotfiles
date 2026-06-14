@@ -1,0 +1,14 @@
+name: iris-qa
+description: |
+  Send a QA endorsement request to otp-endorsement with rich text formatting (clickable links, styled sections), then create a QA subtask in Jira for Andi Khaerul Awwal. Requires glab CLI for direct MR links and acli for Jira. Tags author + Andi, conditionally tags UX based on audience (EMP/CDD). Trigger this skill when the user mentions "qa endorsement", "send to qa", "request qa review", or provides review app URLs.
+recommended: true
+depends_on:
+  - iris-shared
+  - iris-jira
+third_party_probes:
+  - name: glab
+    version_command: ["glab", "--version"]
+    install_url: https://gitlab.com/gitlab-org/cli/#installation
+  - name: lark-cli
+    version_command: ["lark-cli", "--version"]
+    install_url: https://github.com/larksuite/cli#installation

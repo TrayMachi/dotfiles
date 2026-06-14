@@ -1,0 +1,160 @@
+{
+  "installed": [
+    {
+      "name": "figma",
+      "kind": "tool",
+      "version": "v0.1.15",
+      "binary": "/home/tray/.local/bin/figma",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-figma"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-figma",
+        "/home/tray/.config/opencode/skills/iris-figma"
+      ],
+      "secrets": [
+        {
+          "Provider": "figma",
+          "Description": "Figma personal access token (https://developers.figma.com/docs/rest-api/authentication/#access-tokens)",
+          "Optional": false
+        }
+      ],
+      "installed_at": "2026-06-02T16:35:51.72460229Z"
+    },
+    {
+      "name": "iris",
+      "kind": "tool",
+      "version": "v0.1.15",
+      "binary": "/home/tray/.local/bin/iris",
+      "canonical": [
+        "/home/tray/.agents/skills/iris"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris",
+        "/home/tray/.config/opencode/skills/iris"
+      ],
+      "installed_at": "2026-05-19T09:04:35.594959722Z"
+    },
+    {
+      "name": "iris-gitlab",
+      "kind": "skill",
+      "version": "v0.1.15",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-gitlab"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-gitlab",
+        "/home/tray/.config/opencode/skills/iris-gitlab"
+      ],
+      "third_party_probes": [
+        {
+          "Name": "glab",
+          "VersionCommand": [
+            "glab",
+            "--version"
+          ],
+          "InstallURL": "https://gitlab.com/gitlab-org/cli/#installation"
+        }
+      ],
+      "installed_at": "2026-05-19T09:04:37.56295319Z"
+    },
+    {
+      "name": "iris-jira",
+      "kind": "skill",
+      "version": "v0.1.15",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-jira"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-jira",
+        "/home/tray/.config/opencode/skills/iris-jira"
+      ],
+      "third_party_probes": [
+        {
+          "Name": "acli",
+          "VersionCommand": [
+            "acli",
+            "--version"
+          ],
+          "InstallURL": "https://developer.atlassian.com/cloud/acli/guides/install-acli/"
+        }
+      ],
+      "installed_at": "2026-05-19T09:04:37.93746702Z"
+    },
+    {
+      "name": "iris-qa",
+      "kind": "skill",
+      "version": "v0.1.15",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-qa"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-qa",
+        "/home/tray/.config/opencode/skills/iris-qa"
+      ],
+      "third_party_probes": [
+        {
+          "Name": "glab",
+          "VersionCommand": [
+            "glab",
+            "--version"
+          ],
+          "InstallURL": "https://gitlab.com/gitlab-org/cli/#installation"
+        },
+        {
+          "Name": "lark-cli",
+          "VersionCommand": [
+            "lark-cli",
+            "--version"
+          ],
+          "InstallURL": "https://github.com/larksuite/cli#installation"
+        }
+      ],
+      "installed_at": "2026-05-19T09:04:38.093917989Z"
+    },
+    {
+      "name": "iris-review",
+      "kind": "skill",
+      "version": "v0.1.15",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-review"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-review",
+        "/home/tray/.config/opencode/skills/iris-review"
+      ],
+      "third_party_probes": [
+        {
+          "Name": "git",
+          "VersionCommand": [
+            "git",
+            "--version"
+          ],
+          "InstallURL": "https://git-scm.com/downloads"
+        },
+        {
+          "Name": "glab",
+          "VersionCommand": [
+            "glab",
+            "--version"
+          ],
+          "InstallURL": "https://gitlab.com/gitlab-org/cli/#installation"
+        }
+      ],
+      "installed_at": "2026-05-19T09:04:38.23144179Z"
+    },
+    {
+      "name": "iris-shared",
+      "kind": "skill",
+      "version": "v0.1.15",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-shared"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-shared",
+        "/home/tray/.config/opencode/skills/iris-shared"
+      ],
+      "installed_at": "2026-06-02T16:35:52.286272215Z"
+    }
+  ]
+}

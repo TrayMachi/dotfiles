@@ -1,0 +1,14 @@
+name: iris-jira
+description: |
+  Standalone iris skill teaching agents how to drive the `acli` (Atlassian
+  CLI) for Jira work items on the Glints instance — create, edit, transition,
+  view, search, link, and comment on tickets, export a ticket description as
+  Markdown, and download attachments. Use when the user mentions Jira tickets
+  or shares a glints.atlassian.net URL.
+recommended: true
+depends_on:
+  - iris-shared
+third_party_probes:
+  - name: acli
+    version_command: ["acli", "--version"]
+    install_url: https://developer.atlassian.com/cloud/acli/guides/install-acli/

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["opencode-mystatus", "opencode-browser", "openrtk"],
+  "provider": {
+    "command-code": {
+      "options": {
+        "baseURL": "https://api.commandcode.ai/provider/v1"
+      }
+    }
+  },
+  "command": {
+    "mystatus": {
+      "description": "Query quota usage for all AI accounts",
+      "template": "Use the mystatus tool to query quota usage. Return the result as-is without modification."
+    }
+  },
+  "mcp": {
+    "figma": {
+      "type": "local",
+      "command": ["npx", "-y", "figma-developer-mcp", "--stdio"],
+      "environment": {
+        "FIGMA_API_KEY": "figd_REDACTED"
+      },
+      "enabled": true
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true,
+      "headers": {
+        "CONTEXT7_API_KEY": "ctx7_REDACTED"
+      }
+    },
+    "browsermcp": {
+      "type": "local",
+      "command": ["npx", "-y", "@browsermcp/mcp@latest"],
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "@playwright/mcp@latest"],
+      "environment": {
+        "PLAYWRIGHT_MCP_EXECUTABLE_PATH": "/usr/bin/brave"
+      },
+      "enabled": true
+    },
+    "gitlab": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "-y", "@zereight/mcp-gitlab"],
+      "environment": {
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "glpat_REDACTED",
+        "GITLAB_API_URL": "https://gitlab.glints.com",
+        "GITLAB_READ_ONLY_MODE": "false",
+        "USE_GITLAB_WIKI": "false",
+        "USE_MILESTONE": "false",
+        "USE_PIPELINE": "false"
+      }
+    },
+    "lark-mcp": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://open.larksuite.com/mcp/stream/mcp_v036dKNxoYH6qnyDPq2Vju85jrQhEXWouUqb4Mgs9ueT1g663Q0p9r7DbP8y3MjjjWXq5UGYc_0"
+    },
+    "marionette": {
+      "type": "local",
+      "enabled": true,
+      "command": ["marionette_mcp"]
+    },
+    "github": {
+      "type": "remote",
+      "enabled": true,
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer github_pat_REDACTED"
+      }
+    },
+    "postgres": {
+      "type": "local",
+      "enabled": true,
+      "command": ["postgres-mcp", "--access-mode=unrestricted"],
+      "environment": {
+        "DATABASE_URI": "postgresql://glints:glints@localhost:5432/glints"
+      }
+    },
+    "dart": {
+      "type": "local",
+      "command": [
+        "dart mcp-server --experimental-mcp-server --force-roots-fallback"
+      ],
+      "enabled": true
+    },
+    "expect": {
+      "type": "local",
+      "command": ["npx", "-y", "expect-cli@latest", "mcp"],
+      "enabled": true
+    }
+  }
+}

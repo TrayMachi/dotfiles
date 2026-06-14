@@ -1,18 +1,3 @@
--- Monitor config (overrides auto-detection in hyprland/general.lua)
-hl.monitor({
-    output = "HDMI-A-1",
-    mode = "1920x1080@144.0",
-    position = "0x0",
-    scale = "1",
-    bitdepth = 10
-})
-hl.monitor({
-    output = "eDP-1",
-    mode = "1920x1080@120.0",
-    position = "0x1080",
-    scale = "1"
-})
-
 -- Decoration overrides
 hl.config({
     decoration = {
@@ -28,16 +13,16 @@ hl.config({
             popups = true,
         },
     },
-   	general = {
-		layout = "scrolling",
+    general = {
+        layout = "scrolling",
     },
     input = {
-		follow_mouse = 0,
-	},
-	scrolling = {
-		column_width = 1,
-		-- explicit_column_widths = 0.3, 0.8,
+        follow_mouse = 1,
+    },
+    scrolling = {
+        column_width = 1,
+        -- explicit_column_widths = 0.3, 0.8,
         direction = "down",
-		fullscreen_on_one_column = false
-	},
+        fullscreen_on_one_column = false
+    },
 })
