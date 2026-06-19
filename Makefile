@@ -1,9 +1,9 @@
-.PHONY: backup restore backup-fish backup-hypr backup-opencode backup-agents restore-fish restore-hypr restore-opencode restore-agents diff diff-fish diff-hypr diff-opencode diff-agents confirm-restore-fish confirm-restore-hypr confirm-restore-opencode confirm-restore-agents
+.PHONY: backup restore backup-fish backup-hypr backup-opencode backup-agents backup-fastfetch restore-fish restore-hypr restore-opencode restore-agents restore-fastfetch diff diff-fish diff-hypr diff-opencode diff-agents diff-fastfetch confirm-restore-fish confirm-restore-hypr confirm-restore-opencode confirm-restore-agents confirm-restore-fastfetch
 # Default target
 all: backup
 
 # Backup all configs from system to repo
-backup: backup-fish backup-hypr backup-opencode backup-agents
+backup: backup-fish backup-hypr backup-opencode backup-agents backup-fastfetch
 	@echo "All configs backed up!"
 
 # Backup fish config
@@ -30,8 +30,14 @@ backup-agents:
 	@rsync -av --delete ~/.agents/ ./agents/
 	@echo "Agents config backed up."
 
+# Backup fastfetch config
+backup-fastfetch:
+	@echo "Backing up fastfetch config..."
+	@rsync -av --delete ~/.config/fastfetch/ ./fastfetch/
+	@echo "Fastfetch config backed up."
+
 # Restore all configs from repo to system (with confirmation)
-restore: restore-fish restore-hypr restore-opencode restore-agents
+restore: restore-fish restore-hypr restore-opencode restore-agents restore-fastfetch
 	@echo "All configs restored!"
 
 # Helper: confirm before restoring
@@ -81,6 +87,14 @@ restore-agents:
 	@rsync -av --delete ./agents/ ~/.agents/
 	@echo "Agents config restored."
 
+# Restore fastfetch config (with confirmation)
+restore-fastfetch:
+	$(call CONFIRM_RESTORE,fastfetch,./fastfetch/,~/.config/fastfetch/)
+	@echo "Restoring fastfetch config..."
+	@mkdir -p ~/.config/fastfetch
+	@rsync -av --delete ./fastfetch/ ~/.config/fastfetch/
+	@echo "Fastfetch config restored."
+
 # Force restore without confirmation
 confirm-restore-fish:
 	@echo "Restoring fish config..."
@@ -106,8 +120,14 @@ confirm-restore-agents:
 	@rsync -av --delete ./agents/ ~/.agents/
 	@echo "Agents config restored."
 
+confirm-restore-fastfetch:
+	@echo "Restoring fastfetch config..."
+	@mkdir -p ~/.config/fastfetch
+	@rsync -av --delete ./fastfetch/ ~/.config/fastfetch/
+	@echo "Fastfetch config restored."
+
 # Diff all configs (system vs repo)
-diff: diff-fish diff-hypr diff-opencode diff-agents
+diff: diff-fish diff-hypr diff-opencode diff-agents diff-fastfetch
 
 # Diff fish config
 diff-fish:
@@ -128,3 +148,8 @@ diff-opencode:
 diff-agents:
 	@printf "\033[1;36m=== Agents Config Differences ===\033[0m\n"
 	@diff --color=auto -ruN ./agents/ ~/.agents/ || true
+
+# Diff fastfetch config
+diff-fastfetch:
+	@printf "\033[1;36m=== Fastfetch Config Differences ===\033[0m\n"
+	@diff --color=auto -ruN ./fastfetch/ ~/.config/fastfetch/ || true
