@@ -1,0 +1,123 @@
+{
+  "sound": true,
+  "notification": true,
+  "bell": true,
+  "timeout": 5,
+  "showProjectName": true,
+  "showFullPath": false,
+  "showSessionTitle": true,
+  "showIcon": true,
+  "customIconPath": "/home/tray/.config/opencode/plugins/async.webp",
+  "suppressWhenFocused": true,
+  "enableOnDesktop": true,
+  "notificationSystem": "osascript",
+  "suppressGhosttySound": false,
+  "linux": {
+    "grouping": false
+  },
+  "minDuration": 0,
+  "command": {
+    "enabled": false,
+    "path": "/path/to/command",
+    "args": ["--event", "{event}", "--message", "{message}"],
+    "minDuration": 0
+  },
+  "events": {
+    "permission": {
+      "sound": true,
+      "notification": true,
+      "command": true,
+      "bell": true
+    },
+    "complete": {
+      "sound": true,
+      "notification": true,
+      "command": true,
+      "bell": true
+    },
+    "subagent_complete": {
+      "sound": false,
+      "notification": false,
+      "command": true,
+      "bell": false
+    },
+    "error": {
+      "sound": true,
+      "notification": true,
+      "command": true,
+      "bell": true
+    },
+    "question": {
+      "sound": true,
+      "notification": true,
+      "command": true,
+      "bell": true
+    },
+    "user_cancelled": {
+      "sound": false,
+      "notification": false,
+      "command": true,
+      "bell": false
+    },
+    "plan_exit": {
+      "sound": true,
+      "notification": true,
+      "command": true,
+      "bell": false
+    },
+    "session_started": {
+      "sound": false,
+      "notification": false,
+      "command": true,
+      "bell": false
+    },
+    "user_message": {
+      "sound": false,
+      "notification": false,
+      "command": true,
+      "bell": false
+    },
+    "client_connected": {
+      "sound": false,
+      "notification": false,
+      "command": true,
+      "bell": false
+    }
+  },
+  "messages": {
+    "permission": "Session needs permission: {sessionTitle} | {projectName}",
+    "complete": "Session has finished: {sessionTitle} | {projectName}",
+    "subagent_complete": "Subagent task completed: {sessionTitle} | {projectName}",
+    "error": "Session encountered an error: {sessionTitle} | {projectName}",
+    "question": "Session has a question: {sessionTitle} | {projectName}",
+    "user_cancelled": "Session was cancelled by user: {sessionTitle} | {projectName}",
+    "plan_exit": "Plan ready for review: {sessionTitle} | {projectName}",
+    "session_started": "Session started: {sessionTitle} | {projectName}",
+    "user_message": "User sent a message: {sessionTitle} | {projectName}",
+    "client_connected": "OpenCode connected"
+  },
+  "sounds": {
+    "permission": "/home/tray/.config/opencode/plugins/notification.mp3",
+    "complete": "/home/tray/.config/opencode/plugins/NapalmDeathYouSuffer.mp3",
+    "subagent_complete": "/home/tray/.config/opencode/plugins/notification.mp3",
+    "error": "/home/tray/.config/opencode/plugins/notification.mp3",
+    "question": "/home/tray/.config/opencode/plugins/notification.mp3",
+    "user_cancelled": "/home/tray/.config/opencode/plugins/notification.mp3",
+    "plan_exit": "/home/tray/.config/opencode/plugins/notification.mp3",
+    "session_started": "/home/tray/.config/opencode/plugins/notification.mp3",
+    "user_message": "/home/tray/.config/opencode/plugins/notification.mp3",
+    "client_connected": "/home/tray/.config/opencode/plugins/notification.mp3"
+  },
+  "volumes": {
+    "permission": 1,
+    "complete": 1,
+    "subagent_complete": 1,
+    "error": 1,
+    "question": 1,
+    "user_cancelled": 1,
+    "plan_exit": 1,
+    "session_started": 1,
+    "user_message": 1,
+    "client_connected": 1
+  }
+}

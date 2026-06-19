@@ -1,10 +1,17 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-mystatus", "opencode-browser", "openrtk"],
+  "plugin": [
+    "opencode-mystatus",
+    "opencode-browser",
+    "openrtk",
+    "./.opencode/plugins/ponytail.mjs",
+    "@mohak34/opencode-notifier@latest"
+  ],
   "provider": {
     "command-code": {
       "options": {
-        "baseURL": "https://api.commandcode.ai/provider/v1"
+        "baseURL": "https://api.commandcode.ai/provider/v1",
+        "apiKey": "{env:CMD_API_KEY}"
       }
     }
   },
@@ -19,7 +26,7 @@
       "type": "local",
       "command": ["npx", "-y", "figma-developer-mcp", "--stdio"],
       "environment": {
-        "FIGMA_API_KEY": "figd_REDACTED"
+        "FIGMA_API_KEY": "{env:FIGMA_API_KEY}"
       },
       "enabled": true
     },
@@ -28,13 +35,8 @@
       "url": "https://mcp.context7.com/mcp",
       "enabled": true,
       "headers": {
-        "CONTEXT7_API_KEY": "ctx7_REDACTED"
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
       }
-    },
-    "browsermcp": {
-      "type": "local",
-      "command": ["npx", "-y", "@browsermcp/mcp@latest"],
-      "enabled": true
     },
     "playwright": {
       "type": "local",
@@ -49,18 +51,13 @@
       "enabled": true,
       "command": ["npx", "-y", "@zereight/mcp-gitlab"],
       "environment": {
-        "GITLAB_PERSONAL_ACCESS_TOKEN": "glpat_REDACTED",
-        "GITLAB_API_URL": "https://gitlab.glints.com",
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "{env:GITLAB_PERSONAL_ACCESS_TOKEN}",
+        "GITLAB_API_URL": "{env:GITLAB_API_URL}",
         "GITLAB_READ_ONLY_MODE": "false",
         "USE_GITLAB_WIKI": "false",
         "USE_MILESTONE": "false",
         "USE_PIPELINE": "false"
       }
-    },
-    "lark-mcp": {
-      "enabled": true,
-      "type": "remote",
-      "url": "https://open.larksuite.com/mcp/stream/mcp_v036dKNxoYH6qnyDPq2Vju85jrQhEXWouUqb4Mgs9ueT1g663Q0p9r7DbP8y3MjjjWXq5UGYc_0"
     },
     "marionette": {
       "type": "local",
@@ -72,28 +69,8 @@
       "enabled": true,
       "url": "https://api.githubcopilot.com/mcp/",
       "headers": {
-        "Authorization": "Bearer github_pat_REDACTED"
+        "Authorization": "Bearer {env:GITHUB_MCP_TOKEN}"
       }
-    },
-    "postgres": {
-      "type": "local",
-      "enabled": true,
-      "command": ["postgres-mcp", "--access-mode=unrestricted"],
-      "environment": {
-        "DATABASE_URI": "postgresql://glints:glints@localhost:5432/glints"
-      }
-    },
-    "dart": {
-      "type": "local",
-      "command": [
-        "dart mcp-server --experimental-mcp-server --force-roots-fallback"
-      ],
-      "enabled": true
-    },
-    "expect": {
-      "type": "local",
-      "command": ["npx", "-y", "expect-cli@latest", "mcp"],
-      "enabled": true
     }
   }
 }
