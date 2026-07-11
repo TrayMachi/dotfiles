@@ -1,0 +1,13 @@
+name: iris-skill-creator
+description: |
+  Anthropic's upstream skill-creator skill, copied into iris. Teaches
+  agents how to scaffold a new agent skill from scratch, iterate on an
+  existing skill with eval-driven feedback loops, and optimize a skill's
+  description for better triggering. Use when the user asks to create,
+  edit, benchmark, or improve a skill, or to run skill evals. Ships
+  Python helper scripts under `scripts/` (run with `python -m
+  scripts.<name>` from the installed skill directory) plus subagent
+  prompts under `agents/`.
+recommended: true
+depends_on:
+  - iris-shared

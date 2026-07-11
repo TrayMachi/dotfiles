@@ -1,0 +1,13 @@
+name: iris-worktree
+description: |
+  Create git worktrees for implementation work and optionally copy repo-local
+  dev files or run an install command using a reusable script. Use when the user
+  asks for a worktree or wants to start feature work without touching their
+  current checkout.
+recommended: true
+depends_on:
+  - iris-shared
+third_party_probes:
+  - name: git
+    version_command: ["git", "--version"]
+    install_url: https://git-scm.com/downloads

@@ -1,0 +1,17 @@
+name: iris-babysit
+description: |
+  Babysit GitLab CI pipelines until terminal success/failure or manual intervention.
+  Polls pipeline status, diagnoses failed jobs, retries only likely flaky/flakey failures,
+  and notifies the requester in the Lark thread with a mention when the pipeline
+  terminates or needs human help.
+recommended: true
+depends_on:
+  - iris-shared
+  - iris-gitlab
+third_party_probes:
+  - name: glab
+    version_command: ["glab", "--version"]
+    install_url: https://gitlab.com/gitlab-org/cli/#installation
+  - name: lark-cli
+    version_command: ["lark-cli", "--version"]
+    install_url: https://github.com/larksuite/cli#installation

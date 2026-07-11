@@ -3,7 +3,7 @@
     {
       "name": "figma",
       "kind": "tool",
-      "version": "v0.1.15",
+      "version": "v0.1.18",
       "binary": "/home/tray/.local/bin/figma",
       "canonical": [
         "/home/tray/.agents/skills/iris-figma"
@@ -19,12 +19,12 @@
           "Optional": false
         }
       ],
-      "installed_at": "2026-06-02T16:35:51.72460229Z"
+      "installed_at": "2026-06-21T16:25:33.688151789Z"
     },
     {
       "name": "iris",
       "kind": "tool",
-      "version": "v0.1.15",
+      "version": "v0.1.18",
       "binary": "/home/tray/.local/bin/iris",
       "canonical": [
         "/home/tray/.agents/skills/iris"
@@ -33,12 +33,97 @@
         "/home/tray/.claude/skills/iris",
         "/home/tray/.config/opencode/skills/iris"
       ],
-      "installed_at": "2026-05-19T09:04:35.594959722Z"
+      "installed_at": "2026-06-21T16:18:39.897007571Z"
+    },
+    {
+      "name": "iris-babysit",
+      "kind": "skill",
+      "version": "v0.1.18",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-babysit"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-babysit",
+        "/home/tray/.config/opencode/skills/iris-babysit"
+      ],
+      "third_party_probes": [
+        {
+          "Name": "glab",
+          "VersionCommand": [
+            "glab",
+            "--version"
+          ],
+          "InstallURL": "https://gitlab.com/gitlab-org/cli/#installation"
+        },
+        {
+          "Name": "lark-cli",
+          "VersionCommand": [
+            "lark-cli",
+            "--version"
+          ],
+          "InstallURL": "https://github.com/larksuite/cli#installation"
+        }
+      ],
+      "installed_at": "2026-06-21T16:18:48.310855629Z"
+    },
+    {
+      "name": "iris-branch",
+      "kind": "skill",
+      "version": "v0.1.18",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-branch"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-branch",
+        "/home/tray/.config/opencode/skills/iris-branch"
+      ],
+      "third_party_probes": [
+        {
+          "Name": "git",
+          "VersionCommand": [
+            "git",
+            "--version"
+          ],
+          "InstallURL": "https://git-scm.com/downloads"
+        }
+      ],
+      "installed_at": "2026-06-21T16:18:49.61705041Z"
+    },
+    {
+      "name": "iris-code-review",
+      "kind": "skill",
+      "version": "v0.1.18",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-code-review"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-code-review",
+        "/home/tray/.config/opencode/skills/iris-code-review"
+      ],
+      "third_party_probes": [
+        {
+          "Name": "git",
+          "VersionCommand": [
+            "git",
+            "--version"
+          ],
+          "InstallURL": "https://git-scm.com/downloads"
+        },
+        {
+          "Name": "glab",
+          "VersionCommand": [
+            "glab",
+            "--version"
+          ],
+          "InstallURL": "https://gitlab.com/gitlab-org/cli/#installation"
+        }
+      ],
+      "installed_at": "2026-06-21T16:18:51.050323913Z"
     },
     {
       "name": "iris-gitlab",
       "kind": "skill",
-      "version": "v0.1.15",
+      "version": "v0.1.18",
       "canonical": [
         "/home/tray/.agents/skills/iris-gitlab"
       ],
@@ -56,12 +141,12 @@
           "InstallURL": "https://gitlab.com/gitlab-org/cli/#installation"
         }
       ],
-      "installed_at": "2026-05-19T09:04:37.56295319Z"
+      "installed_at": "2026-06-21T16:18:49.10519192Z"
     },
     {
       "name": "iris-jira",
       "kind": "skill",
-      "version": "v0.1.15",
+      "version": "v0.1.18",
       "canonical": [
         "/home/tray/.agents/skills/iris-jira"
       ],
@@ -79,12 +164,35 @@
           "InstallURL": "https://developer.atlassian.com/cloud/acli/guides/install-acli/"
         }
       ],
-      "installed_at": "2026-05-19T09:04:37.93746702Z"
+      "installed_at": "2026-06-21T16:18:50.231596393Z"
+    },
+    {
+      "name": "iris-merge-request",
+      "kind": "skill",
+      "version": "v0.1.18",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-merge-request"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-merge-request",
+        "/home/tray/.config/opencode/skills/iris-merge-request"
+      ],
+      "third_party_probes": [
+        {
+          "Name": "glab",
+          "VersionCommand": [
+            "glab",
+            "--version"
+          ],
+          "InstallURL": "https://gitlab.com/gitlab-org/cli/#installation"
+        }
+      ],
+      "installed_at": "2026-06-21T16:18:51.561989292Z"
     },
     {
       "name": "iris-qa",
       "kind": "skill",
-      "version": "v0.1.15",
+      "version": "v0.1.18",
       "canonical": [
         "/home/tray/.agents/skills/iris-qa"
       ],
@@ -110,7 +218,7 @@
           "InstallURL": "https://github.com/larksuite/cli#installation"
         }
       ],
-      "installed_at": "2026-05-19T09:04:38.093917989Z"
+      "installed_at": "2026-06-21T16:18:51.868460087Z"
     },
     {
       "name": "iris-review",
@@ -146,7 +254,7 @@
     {
       "name": "iris-shared",
       "kind": "skill",
-      "version": "v0.1.15",
+      "version": "v0.1.18",
       "canonical": [
         "/home/tray/.agents/skills/iris-shared"
       ],
@@ -154,7 +262,43 @@
         "/home/tray/.claude/skills/iris-shared",
         "/home/tray/.config/opencode/skills/iris-shared"
       ],
-      "installed_at": "2026-06-02T16:35:52.286272215Z"
+      "installed_at": "2026-06-21T16:25:36.534904658Z"
+    },
+    {
+      "name": "iris-skill-creator",
+      "kind": "skill",
+      "version": "v0.1.18",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-skill-creator"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-skill-creator",
+        "/home/tray/.config/opencode/skills/iris-skill-creator"
+      ],
+      "installed_at": "2026-06-21T16:18:52.280361529Z"
+    },
+    {
+      "name": "iris-worktree",
+      "kind": "skill",
+      "version": "v0.1.18",
+      "canonical": [
+        "/home/tray/.agents/skills/iris-worktree"
+      ],
+      "symlinks": [
+        "/home/tray/.claude/skills/iris-worktree",
+        "/home/tray/.config/opencode/skills/iris-worktree"
+      ],
+      "third_party_probes": [
+        {
+          "Name": "git",
+          "VersionCommand": [
+            "git",
+            "--version"
+          ],
+          "InstallURL": "https://git-scm.com/downloads"
+        }
+      ],
+      "installed_at": "2026-06-21T16:18:50.630071129Z"
     }
   ]
 }

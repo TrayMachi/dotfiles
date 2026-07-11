@@ -1,6 +1,6 @@
 name: iris-qa
 description: |
-  Send a QA endorsement request to otp-endorsement with rich text formatting (clickable links, styled sections), then create a QA subtask in Jira for Andi Khaerul Awwal. Requires glab CLI for direct MR links and acli for Jira. Tags author + Andi, conditionally tags UX based on audience (EMP/CDD). Trigger this skill when the user mentions "qa endorsement", "send to qa", "request qa review", or provides review app URLs.
+  Send a QA endorsement request to otp-endorsement with rich text formatting (clickable links, styled sections), then create a QA subtask in Jira randomly assigned to Andi Khaerul Awwal or Jonathan Rundjan. Requires glab CLI for direct MR links and acli for Jira. Tags author + Andi Khaerul Awwal and Jonathan Rundjan, conditionally tags UX based on audience (EMP/CDD). If no review app URL is provided, infer one for dst or employers repos from the current branch. Trigger this skill only when the user asks to send a QA endorsement/request, request QA review, or create a QA subtask. Do not use for hands-on QA execution, browser testing, feature validation, or requests like "QA this review app/page/flow"; for those, resolve the product repo first and prefer repo-local .agents/skills workflows.
 recommended: true
 depends_on:
   - iris-shared

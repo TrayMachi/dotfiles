@@ -84,16 +84,18 @@ When the user phrases options conversationally, map them to flags:
 ## Creating a work item
 
 ```bash
-acli jira workitem create --summary "Task summary" --project "OTP" --type "Developer Task" --assignee "@me" --yes
+acli jira workitem create --summary "Task summary" --project "OTP" --type "Developer Task" --assignee "@me"
 acli jira workitem transition --key "OTP-XXX" --status "To Do" --yes
 
-acli jira workitem create --summary "Task summary" --project "OTP" --type "Developer Task" --assignee "@me" --parent "OTP-1816" --yes
+acli jira workitem create --summary "Task summary" --project "OTP" --type "Developer Task" --assignee "@me" --parent "OTP-1816"
 acli jira workitem transition --key "OTP-XXX" --status "To Do" --yes
 ```
 
 > **Note:** Some OTP issue types default to `Draft` on creation. To start the
 > ticket in `To Do` (the first active workflow state), run the transition
-> immediately after creation. The `--yes` flag skips confirmation prompts.
+> immediately after creation. The `--yes` flag skips the confirmation prompt —
+> but `workitem create` doesn't accept it (it never prompts), so passing it
+> there fails with `Error: unknown flag: --yes`.
 
 Common work item types: `Epic`, `Story`, `Bug`, `Developer Task` (most common for
 devs), `Sub-task`, `QA subtask`.
@@ -199,7 +201,9 @@ curl -s -L -o "output_filename.png" \
 
 ## Notes
 
-- Add `--yes` to skip confirmation prompts (required for non-interactive runs).
+- Add `--yes` to skip confirmation prompts (required for non-interactive runs)
+  on `edit`, `transition`, `delete`, and `link create`. `create` does not take
+  `--yes` and errors on it (`unknown flag: --yes`).
 - Don't create labels unless the user explicitly asks for them.
 - Watch the arg style: `view` takes the key positionally (`acli jira workitem view OTP-123`),
   while `edit`/`transition` take it as `--key OTP-123`.

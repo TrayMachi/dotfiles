@@ -1,9 +1,9 @@
-.PHONY: backup restore backup-fish backup-hypr backup-opencode backup-agents backup-fastfetch restore-fish restore-hypr restore-opencode restore-agents restore-fastfetch diff diff-fish diff-hypr diff-opencode diff-agents diff-fastfetch confirm-restore-fish confirm-restore-hypr confirm-restore-opencode confirm-restore-agents confirm-restore-fastfetch
+.PHONY: backup restore backup-fish backup-hypr backup-niri backup-opencode backup-agents backup-fastfetch restore-fish restore-hypr restore-niri restore-opencode restore-agents restore-fastfetch diff diff-fish diff-hypr diff-niri diff-opencode diff-agents diff-fastfetch confirm-restore-fish confirm-restore-hypr confirm-restore-niri confirm-restore-opencode confirm-restore-agents confirm-restore-fastfetch
 # Default target
 all: backup
 
 # Backup all configs from system to repo
-backup: backup-fish backup-hypr backup-opencode backup-agents backup-fastfetch
+backup: backup-fish backup-hypr backup-niri backup-opencode backup-agents backup-fastfetch
 	@echo "All configs backed up!"
 
 # Backup fish config
@@ -17,6 +17,12 @@ backup-hypr:
 	@echo "Backing up hypr config..."
 	@rsync -av --delete ~/.config/hypr/ ./hypr/
 	@echo "Hypr config backed up."
+
+# Backup niri config
+backup-niri:
+	@echo "Backing up niri config..."
+	@rsync -av --delete ~/.config/niri/ ./niri/
+	@echo "Niri config backed up."
 
 # Backup opencode config
 backup-opencode:
@@ -37,7 +43,7 @@ backup-fastfetch:
 	@echo "Fastfetch config backed up."
 
 # Restore all configs from repo to system (with confirmation)
-restore: restore-fish restore-hypr restore-opencode restore-agents restore-fastfetch
+restore: restore-fish restore-hypr restore-niri restore-opencode restore-agents restore-fastfetch
 	@echo "All configs restored!"
 
 # Helper: confirm before restoring
@@ -70,6 +76,14 @@ restore-hypr:
 	@mkdir -p ~/.config/hypr
 	@rsync -av --delete ./hypr/ ~/.config/hypr/
 	@echo "Hypr config restored."
+
+# Restore niri config (with confirmation)
+restore-niri:
+	$(call CONFIRM_RESTORE,niri,./niri/,~/.config/niri/)
+	@echo "Restoring niri config..."
+	@mkdir -p ~/.config/niri
+	@rsync -av --delete ./niri/ ~/.config/niri/
+	@echo "Niri config restored."
 
 # Restore opencode config (with confirmation)
 restore-opencode:
@@ -108,6 +122,12 @@ confirm-restore-hypr:
 	@rsync -av --delete ./hypr/ ~/.config/hypr/
 	@echo "Hypr config restored."
 
+confirm-restore-niri:
+	@echo "Restoring niri config..."
+	@mkdir -p ~/.config/niri
+	@rsync -av --delete ./niri/ ~/.config/niri/
+	@echo "Niri config restored."
+
 confirm-restore-opencode:
 	@echo "Restoring opencode config..."
 	@mkdir -p ~/.config/opencode
@@ -127,7 +147,7 @@ confirm-restore-fastfetch:
 	@echo "Fastfetch config restored."
 
 # Diff all configs (system vs repo)
-diff: diff-fish diff-hypr diff-opencode diff-agents diff-fastfetch
+diff: diff-fish diff-hypr diff-niri diff-opencode diff-agents diff-fastfetch
 
 # Diff fish config
 diff-fish:
@@ -138,6 +158,11 @@ diff-fish:
 diff-hypr:
 	@printf "\033[1;36m=== Hypr Config Differences ===\033[0m\n"
 	@diff --color=auto -ruN ./hypr/ ~/.config/hypr/ || true
+
+# Diff niri config
+diff-niri:
+	@printf "\033[1;36m=== Niri Config Differences ===\033[0m\n"
+	@diff --color=auto -ruN ./niri/ ~/.config/niri/ || true
 
 # Diff opencode config
 diff-opencode:

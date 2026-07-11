@@ -1,16 +1,17 @@
 ---
 name: iris-qa
 description: |
-  Send a QA endorsement request to otp-endorsement with rich text formatting (clickable links, styled sections), then create a QA subtask in Jira for Andi Khaerul Awwal. Requires glab CLI for direct MR links and acli for Jira. Tags author + Andi, conditionally tags UX based on audience (EMP/CDD). Trigger this skill when the user mentions "qa endorsement", "send to qa", "request qa review", or provides review app URLs.
+  Send a QA endorsement request to otp-endorsement with rich text formatting (clickable links, styled sections), then create a QA subtask in Jira randomly assigned to Andi Khaerul Awwal or Jonathan Rundjan. Requires glab CLI for direct MR links and acli for Jira. Tags author + Andi Khaerul Awwal and Jonathan Rundjan (both QA), conditionally tags UX based on audience (EMP/CDD). If no review app URL is provided, infer one for dst or employers repos from the current branch. Trigger this skill only when the user asks to send a QA endorsement/request, request QA review, or create a QA subtask. Do not use for hands-on QA execution, browser testing, feature validation, or requests like "QA this review app/page/flow"; for those, resolve the product repo first and prefer repo-local .agents/skills workflows.
 args: |
   [review_app_url...] - Optional review app URLs (space/comma/newline separated).
     When provided, includes them in the message as clickable links.
+    When omitted in dst or employers repos, infer the web review app URL from the branch.
     Supports multiple URLs: iris-qa https://android.app https://ios.app
 ---
 
 # QA Endorsement
 
-Send a structured QA endorsement request to the `otp-endorsement` Lark channel using **rich text formatting** for better readability and clickable links, then create a Jira `QA subtask` for Andi Khaerul Awwal under the appropriate parent ticket.
+Send a structured QA endorsement request to the `otp-endorsement` Lark channel using **rich text formatting** for better readability and clickable links, then create a Jira `QA subtask` randomly assigned to Andi Khaerul Awwal or Jonathan Rundjan under the appropriate parent ticket. The Lark message always tags both Andi Khaerul Awwal and Jonathan Rundjan as QA contacts.
 
 ## Usage
 
@@ -22,11 +23,11 @@ iris-qa [review_app_url...]
 
 | Argument         | Required | Description                                                                                                |
 | ---------------- | -------- | ---------------------------------------------------------------------------------------------------------- |
-| `review_app_url` | No       | One or more review app URLs (space, comma, or newline separated). Can be Android, iOS, or web review apps. |
+| `review_app_url` | No       | One or more review app URLs (space, comma, or newline separated). Can be Android, iOS, or web review apps. If omitted in dst or employers repos, infer the web review app URL from the current branch. |
 
 **Example invocations:**
 
-- `iris-qa` - Run without URLs (review apps section will show "Not provided")
+- `iris-qa` - Run without URLs (infers a URL in dst/employers repos; otherwise shows "Not provided")
 - `iris-qa https://review.glints.com/android/abc123` - Single review app
 - `iris-qa https://review.glints.com/android/abc123 https://review.glints.com/ios/abc123` - Multiple review apps
 - `iris-qa "https://app1.com, https://app2.com"` - Comma-separated in quotes
@@ -52,6 +53,7 @@ Always tagged:
 
 - Author (resolved from git config + Lark contact lookup)
 - Andi Khaerul Awwal (QA)
+- Jonathan Rundjan (QA)
 
 Conditionally tagged (requires UX review + audience confidence ≥ 0.60):
 
@@ -70,7 +72,7 @@ Use `lark-contact` skill to search for contacts by name or email. All contacts m
 - The QA Jira type is `QA subtask`.
 - If the source ticket is already a subtask, create the QA ticket under the source ticket's parent.
 - Otherwise create the QA ticket under the source ticket itself.
-- Set both assignee and reporter to `andi.awwaal@glints.com`.
+- Randomly set the assignee to `andi.awwaal@glints.com` or `jonathan.rundjan@glints.com`.
 - Leave the QA Jira description empty.
 - Transition the QA Jira ticket to `To Do` after creation.
 
@@ -121,7 +123,37 @@ ticket_id="${branch_ticket:-$commit_ticket}"
 jira_url="${JIRA_BASE_URL:-https://glints.atlassian.net/browse}/$ticket_id"
 ```
 
-### 3. Fetch Source Jira Details
+### 3. Infer Review App URL When Omitted
+
+If `review_app_urls` is empty after parsing arguments, infer one only for web repos with a stable review-app host:
+
+```bash
+if [[ ${#review_app_urls[@]} -eq 0 ]]; then
+  branch_namespace=$(printf '%s' "$current_branch" \
+    | tr '[:upper:]/' '[:lower:]-' \
+    | tr -cs 'a-z0-9-' '-' \
+    | sed 's/^-*//; s/-*$//')
+
+  repo_slug=$(basename "$gitlab_repo_url")
+  case "$repo_slug" in
+    dst|glints-dst)
+      review_app_urls+=("https://dst-${branch_namespace}.dev.glints.com/")
+      ;;
+    employers|glints-employers)
+      review_app_urls+=("https://employers-${branch_namespace}.dev.glints.com/")
+      ;;
+  esac
+fi
+```
+
+Examples:
+
+- `employers` on `feature/otp-3451` → `https://employers-feature-otp-3451.dev.glints.com/`
+- `dst` on `feature/otp-3451` → `https://dst-feature-otp-3451.dev.glints.com/`
+
+Do not infer URLs for other repos unless their review-app host pattern is explicitly known. Explicitly provided URLs always win; do not add inferred URLs when the user passed one or more URLs.
+
+### 4. Fetch Source Jira Details
 
 Read the source Jira so the QA subtask can inherit the title and parentage correctly:
 
@@ -146,7 +178,7 @@ fi
 qa_summary="[QA]$source_summary"
 ```
 
-### 4. Classify Changes
+### 5. Classify Changes
 
 Produce a classification JSON for internal routing:
 
@@ -169,14 +201,15 @@ Produce a classification JSON for internal routing:
 | **UX Review**     | UI files changed (tsx, jsx, css, html, dart, .ui, .widget) → `true`; backend-only → `false` |
 | **Testing Scope** | New feature/screen/endpoint/widget → `new_feature`; Bug fix/refactor → `regression`         |
 
-### 5. Resolve Contacts
+### 6. Resolve Contacts
 
 Use the `lark-contact` skill for contact lookup and `lark-im` skill for chat lookup.
 
 **Contacts to resolve:**
 
 - **Author** (required): Search by git config email using `lark contact +search-user`
-- **Andi Khaerul Awwal** (QA): Search by name
+- **Andi Khaerul Awwal** (QA): Search by email `andi.awwaal@glints.com`
+- **Jonathan Rundjan** (QA): Search by email `jonathan.rundjan@glints.com`
 - **UX Designer** (conditional): Only if `requires_ux_review && audience_confidence >= 0.60`
   - EMP audience → Search for "Tung An"
   - CDD audience → Search for "Ogant Biru Samudera"
@@ -185,7 +218,7 @@ Use the `lark-contact` skill for contact lookup and `lark-im` skill for chat loo
 
 - Use `lark im +chat-search` to find "OTP Endorsement" chat
 
-### 6. Compose & Send Message
+### 7. Compose & Send Message
 
 Use the `lark-im` skill to send a **rich text post** message as bot. Rich text provides:
 
@@ -217,6 +250,8 @@ lark-cli im +messages-send \
         { "tag": "at", "user_id": "<author_id>" },
         { "tag": "text", "text": " " },
         { "tag": "at", "user_id": "<andi_id>" },
+        { "tag": "text", "text": " " },
+        { "tag": "at", "user_id": "<jonathan_id>" },
         { "tag": "text", "text": " " },
         { "tag": "at", "user_id": "<ux_id>" }
       ],
@@ -267,7 +302,7 @@ lark-cli im +messages-send \
 
 **Review Apps section behavior:**
 
-- **No URLs provided** (`review_app_urls` is empty): Show single line "• Review App: Not provided"
+- **No URLs provided and no URL inferred** (`review_app_urls` is empty): Show single line "• Review App: Not provided"
 - **Single URL provided**: Show "• URL 1: [Open Review App](url)"
 - **Multiple URLs provided**: Show numbered list "• URL N: [Open Review App](url)" for each URL
 
@@ -277,9 +312,9 @@ lark-cli im +messages-send \
 - `no` if no UX changes
 - `uncertain_not_tagged` if confidence < 0.60
 
-### 7. Create the QA Jira Ticket
+### 8. Create the QA Jira Ticket
 
-After the Lark message is sent successfully, create the QA Jira ticket for Andi.
+After the Lark message is sent successfully, create the QA Jira ticket for one of the QA assignees at random.
 
 If you need to confirm the accepted JSON shape in your environment, check `acli jira workitem create --generate-json` before creating the QA ticket.
 
@@ -288,19 +323,20 @@ Build the JSON payload without a `description` field so the QA ticket stays empt
 ```bash
 create_payload_file=$(mktemp)
 
+qa_assignees=("andi.awwaal@glints.com" "jonathan.rundjan@glints.com")
+qa_assignee="${qa_assignees[$((RANDOM % ${#qa_assignees[@]}))]}"
+
 jq -n \
   --arg projectKey "OTP" \
   --arg summary "$qa_summary" \
   --arg type "QA subtask" \
-  --arg assignee "andi.awwaal@glints.com" \
-  --arg reporter "andi.awwaal@glints.com" \
+  --arg assignee "$qa_assignee" \
   --arg parentIssueId "$qa_parent_issue_id" \
   '{
     projectKey: $projectKey,
     summary: $summary,
     type: $type,
     assignee: $assignee,
-    reporter: $reporter,
     parentIssueId: $parentIssueId
   }' >"$create_payload_file"
 
@@ -314,7 +350,7 @@ acli jira workitem transition --key "$qa_ticket_id" --status "To Do" --yes
 
 If `acli` rejects one of the JSON keys, re-run `acli jira workitem create --generate-json` and match the current template instead of guessing.
 
-### 8. Recall Incorrect Messages (Optional)
+### 9. Recall Incorrect Messages (Optional)
 
 If a message was sent with incorrect formatting, recall it before sending the corrected version:
 
@@ -324,7 +360,7 @@ lark-cli im messages delete \
   --params '{"message_id": "<message_id_to_recall>"}'
 ```
 
-### 9. Return Result
+### 10. Return Result
 
 ```json
 {
@@ -338,6 +374,7 @@ lark-cli im messages delete \
   "ticket_id": "ABC-123",
   "qa_parent_ticket_id": "ABC-100",
   "qa_ticket_id": "ABC-124",
+  "qa_assignee": "<random_qa_assignee>",
   "qa_ticket_url": "https://glints.atlassian.net/browse/ABC-124",
   "testing_scope": "new_feature",
   "review_app_urls": ["https://review.example.com"],
