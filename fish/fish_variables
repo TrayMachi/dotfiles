@@ -2,6 +2,7 @@
 # VERSION: 3.0
 SETUVAR --export ANDROID_HOME:/opt/android\x2dsdk
 SETUVAR --export ANDROID_SDK_ROOT:/opt/android\x2dsdk
+SETUVAR --export GITLAB_HOST:https\x3a//gitlab\x2eglints\x2ecom
 SETUVAR __fish_initialized:4300
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_plugins:jorgebucaran/fisher
