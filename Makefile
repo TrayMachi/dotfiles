@@ -1,9 +1,9 @@
-.PHONY: backup restore backup-fish backup-hypr backup-niri backup-opencode backup-agents backup-fastfetch restore-fish restore-hypr restore-niri restore-opencode restore-agents restore-fastfetch diff diff-fish diff-hypr diff-niri diff-opencode diff-agents diff-fastfetch confirm-restore-fish confirm-restore-hypr confirm-restore-niri confirm-restore-opencode confirm-restore-agents confirm-restore-fastfetch
+.PHONY: backup restore backup-fish backup-hypr backup-niri backup-opencode backup-agents backup-fastfetch backup-zed backup-kitty restore-fish restore-hypr restore-niri restore-opencode restore-agents restore-fastfetch restore-zed restore-kitty diff diff-fish diff-hypr diff-niri diff-opencode diff-agents diff-fastfetch diff-zed diff-kitty confirm-restore-fish confirm-restore-hypr confirm-restore-niri confirm-restore-opencode confirm-restore-agents confirm-restore-fastfetch confirm-restore-zed confirm-restore-kitty
 # Default target
 all: backup
 
 # Backup all configs from system to repo
-backup: backup-fish backup-hypr backup-niri backup-opencode backup-agents backup-fastfetch
+backup: backup-fish backup-hypr backup-niri backup-opencode backup-agents backup-fastfetch backup-zed backup-kitty
 	@echo "All configs backed up!"
 
 # Backup fish config
@@ -42,8 +42,20 @@ backup-fastfetch:
 	@rsync -av --delete ~/.config/fastfetch/ ./fastfetch/
 	@echo "Fastfetch config backed up."
 
+# Backup zed config
+backup-zed:
+	@echo "Backing up zed config..."
+	@rsync -av --delete ~/.config/zed/ ./zed/
+	@echo "Zed config backed up."
+
+# Backup kitty config
+backup-kitty:
+	@echo "Backing up kitty config..."
+	@rsync -av --delete ~/.config/kitty/ ./kitty/
+	@echo "Kitty config backed up."
+
 # Restore all configs from repo to system (with confirmation)
-restore: restore-fish restore-hypr restore-niri restore-opencode restore-agents restore-fastfetch
+restore: restore-fish restore-hypr restore-niri restore-opencode restore-agents restore-fastfetch restore-zed restore-kitty
 	@echo "All configs restored!"
 
 # Helper: confirm before restoring
@@ -109,6 +121,22 @@ restore-fastfetch:
 	@rsync -av --delete ./fastfetch/ ~/.config/fastfetch/
 	@echo "Fastfetch config restored."
 
+# Restore zed config (with confirmation)
+restore-zed:
+	$(call CONFIRM_RESTORE,zed,./zed/,~/.config/zed/)
+	@echo "Restoring zed config..."
+	@mkdir -p ~/.config/zed
+	@rsync -av --delete ./zed/ ~/.config/zed/
+	@echo "Zed config restored."
+
+# Restore kitty config (with confirmation)
+restore-kitty:
+	$(call CONFIRM_RESTORE,kitty,./kitty/,~/.config/kitty/)
+	@echo "Restoring kitty config..."
+	@mkdir -p ~/.config/kitty
+	@rsync -av --delete ./kitty/ ~/.config/kitty/
+	@echo "Kitty config restored."
+
 # Force restore without confirmation
 confirm-restore-fish:
 	@echo "Restoring fish config..."
@@ -146,8 +174,20 @@ confirm-restore-fastfetch:
 	@rsync -av --delete ./fastfetch/ ~/.config/fastfetch/
 	@echo "Fastfetch config restored."
 
+confirm-restore-zed:
+	@echo "Restoring zed config..."
+	@mkdir -p ~/.config/zed
+	@rsync -av --delete ./zed/ ~/.config/zed/
+	@echo "Zed config restored."
+
+confirm-restore-kitty:
+	@echo "Restoring kitty config..."
+	@mkdir -p ~/.config/kitty
+	@rsync -av --delete ./kitty/ ~/.config/kitty/
+	@echo "Kitty config restored."
+
 # Diff all configs (system vs repo)
-diff: diff-fish diff-hypr diff-niri diff-opencode diff-agents diff-fastfetch
+diff: diff-fish diff-hypr diff-niri diff-opencode diff-agents diff-fastfetch diff-zed diff-kitty
 
 # Diff fish config
 diff-fish:
@@ -178,3 +218,13 @@ diff-agents:
 diff-fastfetch:
 	@printf "\033[1;36m=== Fastfetch Config Differences ===\033[0m\n"
 	@diff --color=auto -ruN ./fastfetch/ ~/.config/fastfetch/ || true
+
+# Diff zed config
+diff-zed:
+	@printf "\033[1;36m=== Zed Config Differences ===\033[0m\n"
+	@diff --color=auto -ruN ./zed/ ~/.config/zed/ || true
+
+# Diff kitty config
+diff-kitty:
+	@printf "\033[1;36m=== Kitty Config Differences ===\033[0m\n"
+	@diff --color=auto -ruN ./kitty/ ~/.config/kitty/ || true
