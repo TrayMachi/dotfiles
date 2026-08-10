@@ -4,6 +4,8 @@ window-rule {
 
   // Clips window contents to the rounded corner boundaries.
   clip-to-geometry true
+
+  opacity 0.8
 }
 
 // Floating Noctalia settings window.
@@ -20,8 +22,31 @@ debug {
 }
 
 window-rule {
-    match is-active=false
-    opacity 0.80
+    match is-active=true
+    opacity 0.95
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="helium"
+    match app-id="brave"
+    opacity 1.0
+}
+
+input {
+  touchpad {
+        // off
+        tap
+        // dwt
+        // dwtp
+        // drag false
+        // drag-lock
+        natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "two-finger"
+        // disabled-on-external-mouse
+    }
 }
 
 binds {
@@ -210,7 +235,7 @@ layer-rule {
   place-within-backdrop true
 }
 
-/* Apps: blur them all without xray so it looks more realistic. */
+/* Apps: blur them all with efficient xray so they follow the wallpaper. */
 window-rule {
   background-effect {
     blur true
@@ -235,8 +260,8 @@ layer-rule {
 blur {
   passes 2        // more passes = stronger blur (default: 3)
   offset 3.0      // sample distance per pass (default: 3.0)
-  noise 0.03      // grain overlay (default: 0.02)
-  saturation 1.5  // color saturation boost (default: 1.5)
+  noise 0.04      // grain overlay (default: 0.02)
+  saturation 1.8  // color saturation boost (default: 1.5)
 }
 
 environment {
@@ -244,7 +269,7 @@ environment {
 }
 
 output "HDMI-A-1" {
-    mode "1920x1080@100.000"
+    mode "1920x1080@144.000"
     scale 1
     position x=0 y=0
     layout {
