@@ -1,18 +1,5 @@
 -- Decoration overrides
 hl.config({
-    decoration = {
-        active_opacity = 0.9,
-        inactive_opacity = 0.7,
-        fullscreen_opacity = 1.0,
-        blur = {
-            xray = false,
-            size = 5,
-            passes = 2,
-            brightness = 0.9,
-            contrast = 1.15,
-            popups = true,
-        },
-    },
     general = {
         layout = "scrolling",
     },

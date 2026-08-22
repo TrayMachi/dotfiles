@@ -7,7 +7,15 @@ window-rule {
 
   opacity 0.8
 }
+hotkey-overlay {
+    skip-at-startup
+}
+animations {
 
+
+    window-resize {
+    }
+}
 // Floating Noctalia settings window.
 window-rule {
   match app-id="dev.noctalia.Noctalia"
@@ -34,6 +42,8 @@ window-rule {
 }
 
 input {
+    focus-follows-mouse max-scroll-amount="33%"
+
   touchpad {
         // off
         tap
@@ -47,9 +57,79 @@ input {
         // scroll-method "two-finger"
         // disabled-on-external-mouse
     }
+    keyboard
+
+    mouse {
+    }
 }
 
 binds {
+    // Core Noctalia binds
+
+    // Alternatively, there are commands to move just a single window:
+    // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
+    // ...
+
+
+    // You can bind mouse wheel scroll ticks using the following syntax.
+    // These binds will change direction based on the natural-scroll setting.
+    //
+    // To avoid scrolling through workspaces really fast, you can use
+    // the cooldown-ms property. The bind will be rate-limited to this value.
+    // You can set a cooldown on any bind, but it's most useful for the wheel.
+
+    // Usually scrolling up and down with Shift in applications results in
+    // horizontal scrolling; these binds replicate that.
+
+
+    // Cycle through widths set in preset-column-widths.
+
+    // Cycling through the presets in reverse order is also possible.
+
+
+    // While maximize-column leaves gaps and borders around the window,
+    // maximize-window-to-edges doesn't: the window expands to the edges of the screen.
+    // This bind corresponds to normal window maximizing,
+    // e.g. by double-clicking on the titlebar.
+
+
+
+    // Expand the focused column to space not taken up by other fully visible columns.
+    // Makes the column "fill the rest of the space".
+
+
+
+
+    // Center all fully visible columns on screen.
+
+
+    // Finer width adjustments.
+    // This command can also:
+    // * set width in pixels: "1000"
+    // * adjust width in pixels: "-5" or "+5"
+    // * set width as a percentage of screen width: "25%"
+    // * adjust width as a percentage of screen width: "-10%" or "+10%"
+    // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
+    // set-column-width "100" will make the column occupy 200 physical screen pixels.
+
+
+
+    // Finer height adjustments when in column with other windows.
+
+
+
+    // Move the focused window between the floating and the tiling layout.
+
+
+
+    // Toggle tabbed column display mode.
+    // Windows in this column will appear as vertical tabs,
+    // rather than stacked on top of each other.
+
+
+    // Audio & Brightness
+
+
     // Core Noctalia binds
     Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
     Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
@@ -60,6 +140,7 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Super+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+O repeat=false { toggle-overview; }
+    Mod+N { spawn-sh "noctalia msg panel-toggle noctalia/notes:panel"; }
 
     Mod+Q repeat=false { close-window; }
 
@@ -128,10 +209,10 @@ binds {
     // To avoid scrolling through workspaces really fast, you can use
     // the cooldown-ms property. The bind will be rate-limited to this value.
     // You can set a cooldown on any bind, but it's most useful for the wheel.
-    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
-    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
     Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+Ctrl+WheelScrollUp cooldown-ms=150 { move-column-to-workspace-up; }
 
     Mod+WheelScrollRight      { focus-column-right; }
     Mod+WheelScrollLeft       { focus-column-left; }
@@ -228,6 +309,7 @@ binds {
     XF86AudioMute { spawn-sh "noctalia msg volume-mute"; }
     XF86MonBrightnessUp { spawn-sh "noctalia msg brightness-up"; }
     XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
+    Super+Shift+S { screenshot; }
 }
 
 layer-rule {
@@ -240,7 +322,7 @@ window-rule {
   background-effect {
     blur true
     xray false
-  }
+    }
 }
 
 /*
@@ -253,7 +335,7 @@ layer-rule {
   background-effect {
     xray false
     blur true
-  }
+    }
 }
 
 /* You can also fine-tune the blur effect globally. */

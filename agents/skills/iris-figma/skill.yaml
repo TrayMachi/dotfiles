@@ -1,9 +1,0 @@
-name: iris-figma
-description: |
-  Teaches agents when and how to drive the `figma` binary — downloading a
-  Figma node as a PNG, listing comments on a Figma file, or walking descendant
-  node IDs at a bounded depth. Use when the user shares a figma.com/design/
-  URL and asks to fetch from Figma via the shell.
-recommended: false
-depends_on:
-  - iris-shared

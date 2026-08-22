@@ -1,0 +1,45 @@
+{
+  "mcpServers": {
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "figma-developer-mcp", "--stdio"],
+      "env": {
+        "FIGMA_API_KEY": "${FIGMA_API_KEY}"
+      }
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"],
+      "env": {
+        "PLAYWRIGHT_MCP_EXECUTABLE_PATH": "/usr/bin/brave"
+      }
+    },
+    "gitlab": {
+      "command": "npx",
+      "args": ["-y", "@zereight/mcp-gitlab"],
+      "env": {
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "${GITLAB_PERSONAL_ACCESS_TOKEN}",
+        "GITLAB_API_URL": "${GITLAB_API_URL}",
+        "GITLAB_READ_ONLY_MODE": "false",
+        "USE_GITLAB_WIKI": "false",
+        "USE_MILESTONE": "false",
+        "USE_PIPELINE": "false"
+      }
+    },
+    "marionette": {
+      "command": "marionette_mcp"
+    },
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_MCP_TOKEN}"
+      }
+    }
+  }
+}

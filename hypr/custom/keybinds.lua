@@ -3,11 +3,11 @@
 -- See the corresponding files in ~/.config/hypr/hyprland for examples
 
 local function bind(key, action, description)
-	if description then
-		hl.bind(key, action, { description = description })
-	else
-		hl.bind(key, action)
-	end
+    if description then
+        hl.bind(key, action, { description = description })
+    else
+        hl.bind(key, action)
+    end
 end
 
 
@@ -17,19 +17,21 @@ local function rebind(key, action, description)
 end
 
 local function current_layout_name()
-	local current = hl.get_config("general.layout")
-	return type(current) == "table" and current.name or current
+    local current = hl.get_config("general.layout")
+    return type(current) == "table" and current.name or current
 end
 
 local function layout_bind(layout_name, cmd)
-	return function()
-		if current_layout_name() ~= layout_name then
-			return
-		end
+    return function()
+        if current_layout_name() ~= layout_name then
+            return
+        end
 
-		hl.dispatch(hl.dsp.layout(cmd))
-	end
+        hl.dispatch(hl.dsp.layout(cmd))
+    end
 end
+
+hl.bind("SUPER + escape", hl.dsp.global("quickshell:settingsToggle"), { description = "Toggle settings" })
 
 -- Scrolling
 rebind("SUPER + mouse_up", layout_bind("scrolling", "focus d"), "[s] Move view (d)")

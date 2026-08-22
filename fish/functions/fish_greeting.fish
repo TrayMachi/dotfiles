@@ -7,5 +7,5 @@ function fish_greeting
     set random_logo (random choice $arch_logos)
 
     # Run fastfetch with your custom config but random logo
-    fastfetch --config ~/.config/fastfetch/noctalia.jsonc --logo $random_logo
+    fastfetch --logo $random_logo
 end

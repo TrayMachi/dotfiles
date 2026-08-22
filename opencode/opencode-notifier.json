@@ -98,7 +98,7 @@
   },
   "sounds": {
     "permission": "/home/tray/.config/opencode/plugins/notification.mp3",
-    "complete": "/home/tray/.config/opencode/plugins/NapalmDeathYouSuffer.mp3",
+    "complete": "/home/tray/.config/opencode/plugins/notification.mp3",
     "subagent_complete": "/home/tray/.config/opencode/plugins/notification.mp3",
     "error": "/home/tray/.config/opencode/plugins/notification.mp3",
     "question": "/home/tray/.config/opencode/plugins/notification.mp3",

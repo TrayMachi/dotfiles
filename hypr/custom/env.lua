@@ -3,17 +3,17 @@
 -- See the corresponding files in ~/.config/hypr/hyprland for examples
 
 local function set_env(name, value)
-	hl.env(name, value)
+    hl.env(name, value)
 end
 
 for _, item in ipairs({
-	{ "QT_IM_MODULE", "fcitx" },
-	{ "XMODIFIERS", "@im=fcitx" },
-	{ "SDL_IM_MODULE", "fcitx" },
-	{ "GLFW_IM_MODULE", "ibus" },
-	{ "INPUT_METHOD", "fcitx" },
+    { "QT_IM_MODULE",   "fcitx" },
+    { "XMODIFIERS",     "@im=fcitx" },
+    { "SDL_IM_MODULE",  "fcitx" },
+    { "GLFW_IM_MODULE", "ibus" },
+    { "INPUT_METHOD",   "fcitx" },
 }) do
-	set_env(item[1], item[2])
+    set_env(item[1], item[2])
 end
 
 -- hl.config({ ecosystem = { enforce_permissions = true }})

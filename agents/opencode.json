@@ -1,37 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": [
-    "opencode-mystatus",
-    "opencode-browser",
-    "openrtk",
-    "./.opencode/plugins/ponytail.mjs",
-    "@mohak34/opencode-notifier@latest"
-  ],
-  "permission": {
-    "bash": {
-      "mkdir *": "allow",
-      "git *": "allow",
-      "gh *": "allow"
-    },
-    "external_directory": {
-      "/home/tray/projects/*-worktrees": "allow",
-      "/home/tray/projects/*-worktrees/**": "allow"
-    }
-  },
-  "provider": {
-    "command-code": {
-      "options": {
-        "baseURL": "https://api.commandcode.ai/provider/v1",
-        "apiKey": "{env:CMD_API_KEY}"
-      }
-    }
-  },
-  "command": {
-    "mystatus": {
-      "description": "Query quota usage for all AI accounts",
-      "template": "Use the mystatus tool to query quota usage. Return the result as-is without modification."
-    }
-  },
   "mcp": {
     "figma": {
       "type": "local",
@@ -82,11 +50,6 @@
       "headers": {
         "Authorization": "Bearer {env:GITHUB_MCP_TOKEN}"
       }
-    },
-    "codegraph": {
-      "type": "local",
-      "command": ["codegraph", "serve", "--mcp"],
-      "enabled": true
     }
   }
 }

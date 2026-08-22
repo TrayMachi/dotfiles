@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(docker:*)",
+      "Shell(jq:*)",
+      "Shell(which:*)",
+      "Shell(git:*)",
+      "Shell(echo:*)",
+      "Shell(sed:*)",
+      "Shell()",
+      "Shell(pip:*)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

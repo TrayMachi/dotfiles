@@ -6,11 +6,13 @@ enable_sounds = true
 enabled = true
 
 [bar.default]
-background_opacity = 0.47999998927116394
+background_opacity = 0.44999998994171619
 border = "surface"
-end = [ "recorder", "tray", "group:g2", "group:g1", "session" ]
-margin_ends = 150
-start = [ "workspaces", "media" ]
+end = [ "tray", "recorder", "group:g2", "group:g1", "session" ]
+margin_edge = 4
+margin_ends = 350
+shadow = false
+start = [ "workspaces", "media", "widget", "bar" ]
 thickness = 32
 
     [[bar.default.capsule_group]]
@@ -29,11 +31,20 @@ thickness = 32
     opacity = 0.15000000596046448
     padding = 6.0
 
+[battery.device."/org/freedesktop/UPower/devices/battery_hidpp_battery_0"]
+warning_threshold = 5
+
 [brightness]
 enable_ddcutil = true
 
+[calendar]
+enabled = true
+
+    [calendar.account.personal_google]
+    type = "google"
+
 [control_center.calendar]
-show_events_card = false
+show_events_card = true
 
 [[control_center.shortcuts]]
 type = "wifi"
@@ -177,15 +188,11 @@ auto_locate = true
 enabled = true
 schema_version = 2
 widget_order = [
-    "lockscreen-login-box@winit",
-    "lockscreen-login-box@eDP-1",
     "lockscreen-login-box@HDMI-A-1",
+    "lockscreen-login-box@eDP-1",
     "lockscreen-widget-0000000000000001",
     "lockscreen-widget-0000000000000002",
-    "lockscreen-widget-0000000000000003",
-    "lockscreen-widget-0000000000000004",
-    "lockscreen-widget-0000000000000005",
-    "lockscreen-widget-0000000000000006"
+    "lockscreen-widget-0000000000000003"
 ]
 
     [lockscreen_widgets.grid]
@@ -194,31 +201,35 @@ widget_order = [
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
-    box_height = 70.0
-    box_width = 400.0
+    box_height = 128.0
+    box_width = 720.0
     cx = 960.0
-    cy = 815.0
+    cy = 892.0
     output = "HDMI-A-1"
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
         background_color = "surface_variant"
-        background_opacity = 0.88
+        background_opacity = 0.45000000000000001
         background_radius = 12.0
         center_password_text = false
         input_opacity = 1.0
         input_radius = 6.0
+        layout = "regular"
         show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_password_hint = true
+        show_keyboard_layout = false
+        show_login_button = false
+        show_media = false
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = false
 
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
-    box_height = 70.0
-    box_width = 400.0
+    box_height = 196.0
+    box_width = 810.0
     cx = 960.0
-    cy = 860.0
+    cy = 898.0
     output = "eDP-1"
     rotation = 0.0
     type = "login_box"
@@ -230,10 +241,14 @@ widget_order = [
         center_password_text = false
         input_opacity = 1.0
         input_radius = 6.0
+        layout = "regular"
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_password_hint = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@winit"]
     box_height = 70.0
@@ -254,47 +269,56 @@ widget_order = [
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_password_hint = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
-    box_height = 160.0
-    box_width = 384.0
+    box_height = 96.0
+    box_width = 256.0
     cx = 960.0
-    cy = 220.0
+    cy = 204.0
     output = "HDMI-A-1"
-    rotation = -0.0
+    rotation = 0.0
     type = "clock"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
         background = true
         background_color = "surface_variant"
-        background_opacity = 0.80000000000000004
+        background_opacity = 0.45000000000000001
+        center_text = true
+        clock_style = "digital"
         color = "primary"
         format = "{:%H:%M}"
         shadow = false
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
-    box_height = 112.0
-    box_width = 384.0
+    box_height = 96.0
+    box_width = 688.0
     cx = 960.0
-    cy = 972.0
+    cy = 1036.0
     output = "HDMI-A-1"
     rotation = 0.0
     type = "audio_visualizer"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
+        background = false
         background_opacity = 0.0
         bands = 32
+        centered = false
+        mirrored = true
         show_when_idle = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
-    box_height = 144.0
-    box_width = 336.0
-    cx = 229.0
-    cy = 958.0
+    box_height = 112.0
+    box_width = 304.0
+    cx = 960.0
+    cy = 700.0
     output = "HDMI-A-1"
     rotation = 0.0
     type = "media_player"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
+        background = true
+        background_opacity = 0.45000000000000001
+        hide_when_no_media = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
     box_height = 144.0
@@ -351,20 +375,34 @@ background_opacity = 0.84999998100101948
 [plugin_settings."noctalia/notes"]
 panel_placement = "floating"
 
+[plugin_settings."noctalia/screen_recorder"]
+copy_to_clipboard = true
+
 [plugins]
-enabled = [ "noctalia/notes", "noctalia/screen_recorder", "noctalia/wallhaven" ]
+enabled = [
+    "noctalia/notes",
+    "noctalia/screen_recorder",
+    "noctalia/wallhaven",
+    "cleboost/zed-provider",
+    "alexander/game-launcher",
+    "salemsayed/codexbar-meter"
+]
 
 [shell]
 app_icon_colorize = true
+clipboard_confirm_clear_history = false
 font_family = "Google Sans Flex"
 niri_overview_type_to_launch_enabled = true
 password_style = "random"
 polkit_agent = true
+screen_time_enabled = true
+settings_window_translucent = true
 
     [shell.launcher]
     app_grid = true
 
     [shell.panel]
+    control_center_placement = "floating"
     session_placement = "floating"
     transparency_mode = "glass"
 
@@ -377,27 +415,27 @@ builtin = "Ayu"
 community_palette = "ADW"
 mode = "dark"
 source = "wallpaper"
-wallpaper_scheme = "m3-monochrome"
+wallpaper_scheme = "m3-tonal-spot"
 
     [theme.templates]
     builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "kcolorscheme", "kitty", "niri", "qt", "scroll", "starship" ]
-    community_ids = [ "zen-browser", "obsidian", "zed", "discord", "opencode", "steam" ]
+    community_ids = [ "opencode", "zen-browser", "discord", "telegram", "obsidian", "zed", "heroiclauncher", "steam" ]
 
         [theme.templates.user.fastfetch]
         input_path = "$XDG_CONFIG_HOME/noctalia/templates/fastfetch.jsonc"
         output_path = "$XDG_CONFIG_HOME/fastfetch/noctalia.jsonc"
 
 [wallpaper.default]
-path = "/home/tray/Pictures/Wallpapers/wallhaven-1jmz1w.png"
+path = "/home/tray/Pictures/Wallpapers/1366760.jpeg"
 
 [wallpaper.last]
-path = "/home/tray/Pictures/Wallpapers/wallhaven-1jmz1w.png"
+path = "/home/tray/Pictures/Wallpapers/1366760.jpeg"
 
 [wallpaper.monitors.HDMI-A-1]
-path = "/home/tray/Pictures/Wallpapers/wallhaven-ex338w.jpg"
+path = "/home/tray/Pictures/Wallpapers/1366760.jpeg"
 
 [wallpaper.monitors.eDP-1]
-path = "/home/tray/Pictures/Wallpapers/wallhaven-1jmz1w.png"
+path = "/home/tray/Pictures/Wallpapers/1366760.jpeg"
 
 [[wallpaper.favorite]]
 palette_source = "wallpaper"
@@ -431,8 +469,15 @@ path = "/home/tray/Pictures/Wallpapers/wallhaven-m32dk9.jpg"
 theme_mode = "dark"
 wallpaper_scheme = "m3-content"
 
+[[wallpaper.favorite]]
+path = "/home/tray/Pictures/Wallpapers/weeknd.png"
+theme_mode = "auto"
+
+[widget.bar]
+type = "salemsayed/codexbar-meter:bar"
+
 [widget.brightness]
-enabled = true
+enabled = false
 
 [widget.clipboard]
 enabled = false
@@ -455,3 +500,6 @@ drawer = true
 
 [widget.volume]
 enabled = true
+
+[widget.widget]
+type = "weinguyen/opencode-companion:widget"

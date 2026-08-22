@@ -33,17 +33,6 @@ fnm env --use-on-cd | source
 set -gx PATH /opt/flutter/bin $PATH
 set -gx EDITOR "cursor --wait"
 set -gx ELECTRON_ENABLE_KEYRING false
-
-alias pi="fnm exec --using=24 pi"
-# opencode
-fish_add_path /home/tray/.opencode/bin
-
-# pnpm
-set -gx PNPM_HOME "/home/tray/.local/share/pnpm"
-if not string match -q -- "$PNPM_HOME/bin" $PATH
-  set -gx PATH "$PNPM_HOME/bin" $PATH
-end
-# pnpm end
 # GOVMAN - Go Version Manager
 fish_add_path -p "/home/tray/.govman/bin"
 set -gx GOTOOLCHAIN local
@@ -117,10 +106,7 @@ function govman_auto_switch
 
         set current_version (go version 2>/dev/null | awk '{print $3}' | sed -E 's/^go//; s/([0-9]+\.[0-9]+(\.[0-9]+)?).*/\1/')
         if not string match -qr '^[0-9]+\.[0-9]+(\.[0-9]+)?$' -- "$current_version"; set current_version ""; end
-        # If required_version is major.minor only, truncate current_version for comparison
-        set compare_version $current_version
-        if not string match -q '*.*.*' -- "$required_version"; set compare_version (string replace -r '(\d+\.\d+).*' '$1' -- $current_version); end
-        if test -n "$current_version"; and test "$compare_version" != "$required_version"
+        if test -n "$current_version"; and test "$current_version" != "$required_version"
             echo "Auto-switching to Go $required_version (required by .govman-goversion)"
             govman use "$required_version" >/dev/null 2>&1; or begin
                 echo "Warning: Failed to switch to Go $required_version. Install it with 'govman install $required_version'" >&2
@@ -141,3 +127,14 @@ end
 # Run auto-switch on shell startup
 govman_auto_switch
 # END GOVMAN
+
+alias pi="fnm exec --using=24 pi"
+# opencode
+fish_add_path /home/tray/.opencode/bin
+
+# pnpm
+set -gx PNPM_HOME "/home/tray/.local/share/pnpm"
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
+end
+# pnpm end

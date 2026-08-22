@@ -1,10 +1,9 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export ANDROID_HOME:/opt/android\x2dsdk
-SETUVAR --export ANDROID_SDK_ROOT:/opt/android\x2dsdk
-SETUVAR --export GITLAB_HOST:https\x3a//gitlab\x2eglints\x2ecom
+SETUVAR --export ANDROID_HOME:/home/tray/Android/Sdk
+SETUVAR --export ANDROID_SDK_ROOT:/home/tray/Android/Sdk
 SETUVAR __fish_initialized:4300
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_plugins:jorgebucaran/fisher
 SETUVAR _fisher_upgraded_to_4_4:\x1d
-SETUVAR fish_user_paths:/home/tray/fvm/versions/3\x2e41\x2e9/bin\x1e/opt/android\x2dsdk/platform\x2dtools\x1e/home/tray/\x2eopencode/bin\x1e/home/tray/\x2enpm\x2dglobal/bin\x1e/home/tray/\x2egovman/versions/go1\x2e25\x2e5/bin\x1e/home/tray/Android/Sdk/platform\x2dtools\x1e/home/tray/Android/Sdk/emulator\x1e/home/tray/Android/Sdk\x1e/home/tray/\x2egovman/versions/go1\x2e22\x2e1/bin\x1e/home/tray/\x2egovman/versions/go1\x2e24\x2e1/bin\x1e/home/tray/\x2egovman/versions/go1\x2e26\x2e2/bin\x1e/home/tray/\x2ebun/bin\x1e/home/tray/\x2ecargo/bin\x1e/home/tray/\x2elocal/bin\x1e/home/tray/\x2egovman/versions/go1\x2e22\x2e0/bin\x1e/home/tray/\x2egovman/versions/go1\x2e24\x2e0/bin\x1e/home/tray/go/bin\x1e/home/tray/\x2egovman/bin\x1e/home/tray/\x2epub\x2dcache/bin
+SETUVAR fish_user_paths:/home/tray/\x2eopencode/bin\x1e/home/tray/\x2enpm\x2dglobal/bin\x1e/home/tray/\x2egovman/versions/go1\x2e25\x2e5/bin\x1e/home/tray/Android/Sdk/platform\x2dtools\x1e/home/tray/Android/Sdk/emulator\x1e/home/tray/Android/Sdk\x1e/home/tray/\x2egovman/versions/go1\x2e22\x2e1/bin\x1e/home/tray/\x2egovman/versions/go1\x2e24\x2e1/bin\x1e/home/tray/\x2egovman/versions/go1\x2e26\x2e2/bin\x1e/home/tray/\x2ebun/bin\x1e/home/tray/\x2ecargo/bin\x1e/home/tray/\x2elocal/bin\x1e/home/tray/\x2egovman/versions/go1\x2e22\x2e0/bin\x1e/home/tray/\x2egovman/versions/go1\x2e24\x2e0/bin\x1e/home/tray/go/bin\x1e/home/tray/\x2egovman/bin\x1e/home/tray/\x2epub\x2dcache/bin

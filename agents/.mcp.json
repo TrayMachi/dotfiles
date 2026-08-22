@@ -1,0 +1,61 @@
+{
+	"mcpServers": {
+		"figma": {
+			"transport": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"figma-developer-mcp",
+				"--stdio"
+			],
+			"env": {
+				"FIGMA_API_KEY": "{env:FIGMA_API_KEY}"
+			}
+		},
+		"context7": {
+			"transport": "http",
+			"url": "https://mcp.context7.com/mcp",
+			"headers": {
+				"CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+			}
+		},
+		"playwright": {
+			"transport": "stdio",
+			"command": "npx",
+			"args": [
+				"@playwright/mcp@latest"
+			],
+			"env": {
+				"PLAYWRIGHT_MCP_EXECUTABLE_PATH": "/usr/bin/brave"
+			}
+		},
+		"gitlab": {
+			"transport": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@zereight/mcp-gitlab"
+			],
+			"env": {
+				"GITLAB_PERSONAL_ACCESS_TOKEN": "{env:GITLAB_PERSONAL_ACCESS_TOKEN}",
+				"GITLAB_API_URL": "{env:GITLAB_API_URL}",
+				"GITLAB_READ_ONLY_MODE": "false",
+				"USE_GITLAB_WIKI": "false",
+				"USE_MILESTONE": "false",
+				"USE_PIPELINE": "false"
+			}
+		},
+		"marionette": {
+			"transport": "stdio",
+			"command": "marionette_mcp",
+			"args": []
+		},
+		"github": {
+			"transport": "http",
+			"url": "https://api.githubcopilot.com/mcp/",
+			"headers": {
+				"Authorization": "Bearer {env:GITHUB_MCP_TOKEN}"
+			}
+		}
+	}
+}
